@@ -1,16 +1,16 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 
 const Movie = (props) => {
-	const { item } = props;
+	const { item, navigation } = props;
 	return (
 		<View style={styles.container}>
-			<Image style={styles.image} source={{ uri: item.image }} />
-			<Text 
-				style={styles.title}
-			>
-				{item.title}
-			</Text>
+			<TouchableOpacity onPress={() => {
+				navigation.push('Details', { movie: item })
+			}}>
+				<Image style={styles.image} source={{ uri: item.image }} />
+				<Text style={styles.title}>{item.title}</Text>
+			</TouchableOpacity>
 		</View>
 	);
 };

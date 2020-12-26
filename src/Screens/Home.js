@@ -1,11 +1,27 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, SafeAreaView, Text, FlatList, StatusBar } from 'react-native';
+import {
+	View,
+	StyleSheet,
+	SafeAreaView,
+	FlatList,
+	StatusBar
+} from 'react-native';
 import axios from 'axios';
 
 import SearchBar from '../components/SearchBar';
 import Movie from '../components/Movie';
 
-const Home = () => {
+const DEFAULT_IMG = "https://media.gettyimages.com/photos/old-film-perforated-celluloid-picture-id155278297?s=2048x2048";
+const IMG_ENDPOINT = `https://image.tmdb.org/t/p/w500/`;
+
+function getImage(path) {
+	if (!path) {
+		return DEFAULT_IMG;
+	}
+	return `${IMG_ENDPOINT}/${path}`;
+};
+
+const Home = (props) => {
 	const [movies, setMovies] = useState([]);
 	const [query, setQuery] = useState('');
 	const [error, setError] = useState('');
@@ -13,31 +29,25 @@ const Home = () => {
 
 	async function fetchMovies() {
 		setLoading(true);
-		axios.get(`https://api.themoviedb.org/3/search/movie?api_key=a1279933de606b4374a2c93a1d0127a9&query=${query}`)
-			.then((response) => {
-				if (!response.data.results) {
-					setLoading(false);
-					setError('Something went wrong');
-				}
+		
+		try {
+			const response = await axios.get(
+				`https://api.themoviedb.org/3/search/movie?api_key=a1279933de606b4374a2c93a1d0127a9&query=${query}`,
+			);
 
-				const moviesLoaded = response.data.results.map((movie) => {
-					const thumbnail = movie.poster_path
-						? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-	          : "https://media.gettyimages.com/photos/old-film-perforated-celluloid-picture-id155278297?s=2048x2048";
-
-					return {
-						id: movie.id,
-						title: movie.title,
-						image: thumbnail,
-					}
-				})
-
-				setMovies(moviesLoaded);
-				setLoading(false);
-			})
+			const movieLoaded = response.data.results.map((movie) => ({
+				...movie,
+				image: getImage(movie.poster_path),
+			}))
+			setMovies(movieLoaded);
+		} catch(error) {
+			setError('Something went wrong');
+		} finally {
+			setLoading(false);
+		}
 	}
 
-	handleChange = (text) => {
+	const handleChange = (text) => {
 		setQuery(text);
 	}
 
@@ -53,11 +63,17 @@ const Home = () => {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<SearchBar handleChange={handleChange} handleSubmit={handleSubmit} query={query} />
+			<SearchBar
+				handleChange={handleChange}
+				handleSubmit={handleSubmit}
+				query={query}
+			/>
 			<View>
 				<FlatList
 					data={movies}
-					renderItem={({ item }) => <Movie item={item} />}
+					renderItem={({ item }) => (
+						<Movie item={item} navigation={props.navigation} />
+					)}
 					keyExtractor={(item) => item.id.toString()}
 				/>
 			</View>
