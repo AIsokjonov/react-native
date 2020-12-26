@@ -2,17 +2,27 @@ import React from 'react';
 import { Button, StyleSheet, View, TextInput } from 'react-native';
 
 const SearchBar = (props) => {
+	handleChange = (text) => {
+		props.handleChange(text);
+	};
+
+	async function handleSubmit(event) {
+		props.handleSubmit(event);
+	}
+
 	return (
 		<View>
 			<View style={styles.container}>
 				<TextInput
 					style={styles.input}
 					placeholder="Type movie title, author etc..."
+					value={props.query}
+					onChangeText={handleChange}
 				/>
 			</View>
 			<Button
 				title="Search"
-				onPress={props.onPress}
+				onPress={handleSubmit}
 			/>
 		</View>
 	);

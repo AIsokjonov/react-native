@@ -7,6 +7,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
+		"dt": "react-devtools",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -14,6 +15,7 @@
     "@react-navigation/native": "^5.8.10",
     "axios": "^0.21.1",
     "react": "16.13.1",
+    "react-devtools": "^4.10.1",
     "react-native": "0.63.4",
     "react-native-gesture-handler": "^1.7.0",
     "react-native-reanimated": "^1.13.2",

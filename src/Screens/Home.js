@@ -33,8 +33,8 @@ const Home = () => {
 			})
 	}
 
-	handleChange = (e) => {
-		setQuery(e.target.value);
+	handleChange = (text) => {
+		setQuery(text);
 	}
 
 	async function handleSubmit(e) {
@@ -49,18 +49,7 @@ const Home = () => {
 
 	return (
 		<View style={styles.container}>
-			<View style={styles.searchbar}>
-				<TextInput
-					style={styles.input}
-					placeholder="Type movie title, director etc..."
-					value={query}
-					onChangeText={(text) => setQuery(text)}
-				/>
-				<Button
-					title="Search"
-					onPress={handleSubmit}
-				/>
-			</View>
+			<SearchBar handleChange={handleChange} handleSubmit={handleSubmit} query={query} />
 			<View style={styles.results}>
 				{
 					movies.map((movie, index) => (
