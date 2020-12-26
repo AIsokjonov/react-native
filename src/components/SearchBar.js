@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, StyleSheet, View, TextInput } from 'react-native';
 
-const SearchBar = () => {
+const SearchBar = (props) => {
 	return (
 		<View>
 			<View style={styles.container}>
@@ -12,6 +12,7 @@ const SearchBar = () => {
 			</View>
 			<Button
 				title="Search"
+				onPress={props.onPress}
 			/>
 		</View>
 	);
