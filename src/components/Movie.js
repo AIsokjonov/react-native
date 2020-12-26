@@ -4,16 +4,33 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 const Movie = (props) => {
 	const { item } = props;
 	return (
-		<View>
-			<Text>{item.title}</Text>
+		<View style={styles.container}>
+			<Image style={styles.image} source={{ uri: item.image }} />
+			<Text 
+				style={styles.title}
+			>
+				{item.title}
+			</Text>
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
+	container: {
+		width: 300,
+		height: 400,
+		borderWidth: 0.3,
+		marginTop: 10,
+		marginBottom: 10,
+	},
 	image: {
-		width: 100,
-		height: 150,
+		width: 300,
+		height: 330,
+	},
+	title: {
+		fontSize: 18,
+		marginTop: 10,
+		textAlign: 'center'
 	}
 });
 

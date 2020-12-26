@@ -1,13 +1,21 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './src/Screens/Home';
+import MovieDetails from './src/Screens/MovieDetails';
+
+const Stack = createStackNavigator();
 
 const App = () => {
 	return (
-		<View style={styles.container}>
-			<Home />
-		</View>
+		<NavigationContainer>
+			<Stack.Navigator>
+				<Stack.Screen name="Home" component={Home} />
+				<Stack.Screen name="Details" component={MovieDetails} />
+			</Stack.Navigator>
+		</NavigationContainer>
 	);
 };
 

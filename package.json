@@ -7,12 +7,13 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-		"dt": "react-devtools",
+    "dt": "react-devtools",
     "lint": "eslint ."
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.8.10",
+    "@react-navigation/stack": "^5.12.8",
     "axios": "^0.21.1",
     "react": "16.13.1",
     "react-devtools": "^4.10.1",

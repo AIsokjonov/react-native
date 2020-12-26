@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextInput, Button, StyleSheet, View, Text, FlatList } from 'react-native';
+import { View, TextInput, Button, StyleSheet, SafeAreaView, Text, FlatList, StatusBar } from 'react-native';
 import axios from 'axios';
 
 import SearchBar from '../components/SearchBar';
@@ -52,26 +52,24 @@ const Home = () => {
 	}
 
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			<SearchBar handleChange={handleChange} handleSubmit={handleSubmit} query={query} />
-			<View style={styles.results}>
+			<View>
 				<FlatList
 					data={movies}
 					renderItem={({ item }) => <Movie item={item} />}
 					keyExtractor={(item) => item.id.toString()}
 				/>
 			</View>
-		</View>
+		</SafeAreaView>
 	);
 };
 
 const styles = StyleSheet.create({
 	container: {
-		marginTop: 100,
-		alignItems: 'center'
-	},
-	searchbar: {
-	borderWidth: 2
+		alignItems: 'center',
+		marginTop: StatusBar.currentHeight || 0,
+		marginBottom: 150,
 	},
 	input: {
 		borderWidth: 1,
@@ -79,7 +77,7 @@ const styles = StyleSheet.create({
 		width: 300,
 		height: 35,
 		fontSize: 20
-	}
+	},
 });
 
 export default Home;
