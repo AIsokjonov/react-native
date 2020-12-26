@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextInput, Button, StyleSheet, View, Text } from 'react-native';
+import { TextInput, Button, StyleSheet, View, Text, FlatList } from 'react-native';
 import axios from 'axios';
 
 import SearchBar from '../components/SearchBar';
@@ -21,10 +21,14 @@ const Home = () => {
 				}
 
 				const moviesLoaded = response.data.results.map((movie) => {
+					const thumbnail = movie.poster_path
+						? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+	          : "https://media.gettyimages.com/photos/old-film-perforated-celluloid-picture-id155278297?s=2048x2048";
+
 					return {
 						id: movie.id,
 						title: movie.title,
-						image: movie.poster_path,
+						image: thumbnail,
 					}
 				})
 
@@ -51,13 +55,11 @@ const Home = () => {
 		<View style={styles.container}>
 			<SearchBar handleChange={handleChange} handleSubmit={handleSubmit} query={query} />
 			<View style={styles.results}>
-				{
-					movies.map((movie, index) => (
-						<View key={index}>
-							<Text>{movie.title}</Text>
-						</View>
-					))
-				}
+				<FlatList
+					data={movies}
+					renderItem={({ item }) => <Movie item={item} />}
+					keyExtractor={(item) => item.id.toString()}
+				/>
 			</View>
 		</View>
 	);

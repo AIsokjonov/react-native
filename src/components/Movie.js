@@ -1,13 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 
-const Movie = ( props ) => {
+const Movie = (props) => {
+	const { item } = props;
 	return (
 		<View>
-			<Image style={styles.image} source={{uri: props.movie.image}} />
-			<View>
-				<Text>{props.movie.name}</Text>
-			</View>
+			<Text>{item.title}</Text>
 		</View>
 	);
 };
