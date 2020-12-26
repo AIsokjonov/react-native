@@ -1,5 +1,13 @@
 import React from 'react';
-import { StatusBar, SafeAreaView, StyleSheet, View, Text, Button, Image } from 'react-native';
+import {
+	StatusBar,
+	SafeAreaView,
+	StyleSheet,
+	View,
+	Text,
+	Button,
+	Image
+} from 'react-native';
 
 const MovieDetails = ({ navigation, route }) => {
 	const { movie } = route.params;
@@ -10,7 +18,7 @@ const MovieDetails = ({ navigation, route }) => {
 			<Text style={styles.overview}>{movie.overview}</Text>
 			<Text>
 				<View><Text style={styles.rating}>Rating: {movie.vote_average}</Text></View>
-				<View><Text style={styles.release_date}>Release Data: {movie.release_date}</Text></View>
+				<View><Text style={styles.release_date}>Release Date: {movie.release_date}</Text></View>
 			</Text>
 			<Button
 				title="Home" 

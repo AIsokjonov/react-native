@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, View, TextInput } from 'react-native';
+import { Button, StyleSheet, View, TextInput, StatusBar } from 'react-native';
 
 const SearchBar = (props) => {
 	handleChange = (text) => {
@@ -11,7 +11,7 @@ const SearchBar = (props) => {
 	}
 
 	return (
-		<View>
+		<View style={styles.searchbar}>
 			<View style={styles.container}>
 				<TextInput
 					style={styles.input}
@@ -29,17 +29,21 @@ const SearchBar = (props) => {
 };
 
 const styles = StyleSheet.create({
-	container: {
+	searchbar: {
 		borderWidth: 1,
-		width: 300,
-		height: 35,
+		marginTop: StatusBar.currentHeight || 0,
+		flexDirection: 'row'
+	},
+	container: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderWidth: 0.3,
 	},
 	input: {
-		width: 300,
-		fontSize: 22,
-		textAlign: 'center',
-		alignItems: 'center',
+		width: 280,
+		fontSize: 18,
+		justifyContent: 'center',
 	}
-})
+});
 
 export default SearchBar;

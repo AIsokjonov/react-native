@@ -9,7 +9,6 @@ const Movie = (props) => {
 				navigation.push('Details', { movie: item })
 			}}>
 				<Image style={styles.image} source={{ uri: item.image }} />
-				<Text style={styles.title}>{item.title}</Text>
 			</TouchableOpacity>
 		</View>
 	);
@@ -17,15 +16,16 @@ const Movie = (props) => {
 
 const styles = StyleSheet.create({
 	container: {
-		width: 300,
-		height: 400,
-		borderWidth: 0.3,
-		marginTop: 10,
-		marginBottom: 10,
+		width: 100,
+		height: 120,
+		marginTop: 2,
+		marginBottom: 2,
+		flexDirection: 'column',
+		borderWidth: 1,
 	},
 	image: {
-		width: 300,
-		height: 330,
+		width: 100,
+		height: 120,
 	},
 	title: {
 		fontSize: 18,

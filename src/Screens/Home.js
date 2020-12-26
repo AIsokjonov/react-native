@@ -62,22 +62,20 @@ const Home = (props) => {
 	}
 
 	return (
-		<SafeAreaView style={styles.container}>
+		<View style={styles.container}>
 			<SearchBar
 				handleChange={handleChange}
 				handleSubmit={handleSubmit}
 				query={query}
 			/>
-			<View>
-				<FlatList
-					data={movies}
-					renderItem={({ item }) => (
-						<Movie item={item} navigation={props.navigation} />
-					)}
-					keyExtractor={(item) => item.id.toString()}
-				/>
-			</View>
-		</SafeAreaView>
+			<FlatList
+				data={movies}
+				renderItem={({ item }) => (
+					<Movie item={item} navigation={props.navigation} />
+				)}
+				keyExtractor={(item) => item.id.toString()}
+			/>
+		</View>
 	);
 };
 
@@ -85,15 +83,12 @@ const styles = StyleSheet.create({
 	container: {
 		alignItems: 'center',
 		marginTop: StatusBar.currentHeight || 0,
-		marginBottom: 150,
+		marginBottom: 60,
 	},
-	input: {
+	movieBlock: {
+		flexDirection: 'row',
 		borderWidth: 1,
-		borderColor: 'silver',
-		width: 300,
-		height: 35,
-		fontSize: 20
-	},
+	}
 });
 
 export default Home;
