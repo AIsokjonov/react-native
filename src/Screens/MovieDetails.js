@@ -5,7 +5,6 @@ import {
 	StyleSheet,
 	View,
 	Text,
-	Button,
 	Image,
 	ScrollView
 } from 'react-native';
@@ -60,10 +59,6 @@ const MovieDetails = ({ navigation, route }) => {
 					<View><Text style={styles.rating}>Rating: {movie.rating}</Text></View>
 					<View><Text style={styles.release_date}>Release Date: {movie.release_date}</Text></View>
 				</Text>
-				<Button
-					title="Home"
-					onPress={() => navigation.navigate('Home')}
-				/>
 			</ScrollView>
 		</SafeAreaView>
 	);
