@@ -6,7 +6,7 @@ const Movie = (props) => {
 	return (
 		<View style={styles.container}>
 			<TouchableOpacity onPress={() => {
-				navigation.push('Details', { movie: item })
+				navigation.push('Details', { movieId: item.id })
 			}}>
 				<Image style={styles.image} source={{ uri: item.image }} />
 			</TouchableOpacity>
