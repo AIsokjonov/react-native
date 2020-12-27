@@ -69,11 +69,13 @@ const Home = (props) => {
 				query={query}
 			/>
 			<FlatList
+				horizontal={false}
 				contentContainerStyle={styles.list}
 				data={movies}
 				renderItem={({ item }) => (
 					<Movie item={item} navigation={props.navigation} />
 				)}
+				numColumns={3}
 				keyExtractor={(item) => item.id.toString()}
 			/>
 		</SafeAreaView>
@@ -89,9 +91,7 @@ const styles = StyleSheet.create({
 	},
 	list: {
 		marginTop: 10,
-		flexDirection: 'row',
-		flexWrap: 'wrap',
-		justifyContent: 'flex-start',
+		width: 400,
 	}
 });
 
