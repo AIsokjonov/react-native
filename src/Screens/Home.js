@@ -62,20 +62,21 @@ const Home = (props) => {
 	}
 
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			<SearchBar
 				handleChange={handleChange}
 				handleSubmit={handleSubmit}
 				query={query}
 			/>
 			<FlatList
+				contentContainerStyle={styles.list}
 				data={movies}
 				renderItem={({ item }) => (
 					<Movie item={item} navigation={props.navigation} />
 				)}
 				keyExtractor={(item) => item.id.toString()}
 			/>
-		</View>
+		</SafeAreaView>
 	);
 };
 
@@ -83,11 +84,14 @@ const styles = StyleSheet.create({
 	container: {
 		alignItems: 'center',
 		marginTop: StatusBar.currentHeight || 0,
-		marginBottom: 60,
+		marginBottom: 20,
+		justifyContent: 'center'
 	},
-	movieBlock: {
+	list: {
+		marginTop: 10,
 		flexDirection: 'row',
-		borderWidth: 1,
+		flexWrap: 'wrap',
+		justifyContent: 'flex-start',
 	}
 });
 

@@ -16,21 +16,17 @@ const Movie = (props) => {
 
 const styles = StyleSheet.create({
 	container: {
-		width: 100,
-		height: 120,
-		marginTop: 2,
-		marginBottom: 2,
-		flexDirection: 'column',
-		borderWidth: 1,
+		width: 120,
+		maxWidth: 120,
+		height: 150,
+		maxHeight: 150,
+		flex: 1,
+		margin: 2,
+		
 	},
 	image: {
-		width: 100,
-		height: 120,
-	},
-	title: {
-		fontSize: 18,
-		marginTop: 10,
-		textAlign: 'center'
+		width: 120,
+		height: 150,
 	}
 });
 
