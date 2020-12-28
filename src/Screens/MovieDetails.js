@@ -29,8 +29,9 @@ const MovieDetails = ({ navigation, route }) => {
 	useEffect(() => {
 		function fetchMovie() {
 			setLoading(true);
-			axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=a1279933de606b4374a2c93a1d0127a9&language=en-US`)
-				.then(({ data: response }) => {
+			try {
+				axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=a1279933de606b4374a2c93a1d0127a9&language=en-US`)
+					.then(({ data: response }) => {
 
 					const movieLoaded = {
 						id: response.id,
@@ -42,8 +43,12 @@ const MovieDetails = ({ navigation, route }) => {
 					}
 
 					setMovie(movieLoaded);
-					setLoading(false);
-				})
+				})}
+			catch (error) {
+				setError('Something went wrong');
+			} finally {
+				setLoading(false);
+			}
 		}
 
 		fetchMovie();
