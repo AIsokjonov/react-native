@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-	View,
 	StyleSheet,
 	SafeAreaView,
 	FlatList,
@@ -38,7 +37,8 @@ const Home = (props) => {
 			const movieLoaded = response.data.results.map((movie) => ({
 				...movie,
 				image: getImage(movie.poster_path),
-			}))
+			}));
+			
 			setMovies(movieLoaded);
 		} catch(error) {
 			setError('Something went wrong');

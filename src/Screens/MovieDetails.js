@@ -7,9 +7,10 @@ import {
 	Text,
 	Image,
 	ScrollView,
-	TouchableOpacity,
 } from 'react-native';
 import axios from 'axios';
+
+import Recommendation from '../components/Recommendation';
 
 const DEFAULT_IMG = "https://media.gettyimages.com/photos/old-film-perforated-celluloid-picture-id155278297?s=2048x2048";
 const IMG_ENDPOINT = `https://image.tmdb.org/t/p/w500/`;
@@ -19,19 +20,6 @@ function getImage(path) {
 		return DEFAULT_IMG;
 	}
 	return `${IMG_ENDPOINT}/${path}`;
-};
-
-const Recommendation = (props) => {
-	const { item, navigation } = props;
-	return (
-		<View style={styles.recommendation}>
-			<TouchableOpacity onPress={() => {
-				navigation.push('Details', { movieId: item.id })
-			}}>
-				<Image style={styles.image} source={{ uri: item.image }} />
-			</TouchableOpacity>
-		</View>
-	);
 };
 
 const MovieDetails = ({ navigation, route }) => {
@@ -142,21 +130,6 @@ const styles = StyleSheet.create({
 	recs: {
 		marginTop: 20,
 		width: 360,
-	},
-	rec_head: {
-		fontSize: 24,
-		fontWeight: 'bold',
-		textAlign: 'center',
-		marginBottom: 10,
-	},
-	recommendation: {
-		flexDirection: 'row',
-		flexWrap: 'wrap',
-		margin: 1,
-	},
-	image: {
-		width: 117,
-		height: 150,
 	}
 });
 

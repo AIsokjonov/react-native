@@ -21,6 +21,15 @@ const Search = () => {
 	);
 };
 
+const Browser = () => {
+	return (
+		<Stack.Navigator>
+			<Stack.Screen name="Browse" component={Browse} />
+			<Stack.Screen name="Details" component={MovieDetails} />
+		</Stack.Navigator>
+	);
+};
+
 const App = () => {
 	return (
 		<NavigationContainer>
@@ -40,7 +49,7 @@ const App = () => {
 				})}
 			>
 				<Tab.Screen name="Search" component={Search} />
-				<Tab.Screen name="Browse" component={Browse} />
+				<Tab.Screen name="Browser" component={Browser} />
 			</Tab.Navigator>
 		</NavigationContainer>
 	);

@@ -20,13 +20,11 @@ const styles = StyleSheet.create({
 		maxWidth: 120,
 		height: 150,
 		maxHeight: 150,
-		flex: 1,
-		margin: 2,
 		
 	},
 	image: {
-		width: 120,
-		height: 150,
+		width: 117,
+		height: 148,
 	}
 });
 
