@@ -98,12 +98,15 @@ const MovieDetails = ({ navigation, route }) => {
 					<View><Text style={styles.rating}>Rating: {movie.rating}</Text></View>
 					<View><Text style={styles.release_date}>Release Date: {movie.release_date}</Text></View>
 				</Text>
-				<View>
-					{
-						recommendations.map((item) => (
-							<Recommendation key={item.id.toString()} item={item} navigation={navigation} />
-						))
-					}
+				<View style={styles.recs}>
+					<Text style={styles.rec_head}>Recommendations</Text>
+					<View style={styles.recommendation}>
+						{
+							recommendations.map((item) => (
+								<Recommendation key={item.id.toString()} item={item} navigation={navigation} />
+							))
+						}
+					</View>
 				</View>
 			</ScrollView>
 		</SafeAreaView>
@@ -116,7 +119,7 @@ const styles = StyleSheet.create({
 		marginTop: StatusBar.currentHeight || 0,
 	},
 	img: {
-		width: 350,
+		width: 360,
 		height: 500,
 	},
 	title: {
@@ -136,19 +139,23 @@ const styles = StyleSheet.create({
 	release_date: {
 		fontWeight: 'bold',
 	},
-	recommendation: {
+	recs: {
 		marginTop: 20,
+		width: 360,
 	},
-	list: {
-		marginTop: 10,
-		width: 400,
+	rec_head: {
+		fontSize: 24,
+		fontWeight: 'bold',
+		textAlign: 'center',
+		marginBottom: 10,
 	},
 	recommendation: {
-		flex: 1,
 		flexDirection: 'row',
+		flexWrap: 'wrap',
+		margin: 1,
 	},
 	image: {
-		width: 120,
+		width: 117,
 		height: 150,
 	}
 });
