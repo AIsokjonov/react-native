@@ -6,7 +6,8 @@ import {
 	View,
 	Text,
 	Image,
-	ScrollView
+	ScrollView,
+	TouchableOpacity,
 } from 'react-native';
 import axios from 'axios';
 
@@ -20,9 +21,23 @@ function getImage(path) {
 	return `${IMG_ENDPOINT}/${path}`;
 };
 
+const Recommendation = (props) => {
+	const { item, navigation } = props;
+	return (
+		<View style={styles.recommendation}>
+			<TouchableOpacity onPress={() => {
+				navigation.push('Details', { movieId: item.id })
+			}}>
+				<Image style={styles.image} source={{ uri: item.image }} />
+			</TouchableOpacity>
+		</View>
+	);
+};
+
 const MovieDetails = ({ navigation, route }) => {
 	const { movieId } = route.params;
 	const [movie, setMovie] = useState({});
+	const [recommendations, setRecommendations] = useState([]);
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
 
@@ -33,17 +48,17 @@ const MovieDetails = ({ navigation, route }) => {
 				axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=a1279933de606b4374a2c93a1d0127a9&language=en-US`)
 					.then(({ data: response }) => {
 
-					const movieLoaded = {
-						id: response.id,
-						title: response.title,
-						overview: response.overview,
-						image: getImage(response.poster_path),
-						rating: response.vote_average,
-						release_date: response.release_date
-					}
-
-					setMovie(movieLoaded);
-				})}
+						const movieLoaded = {
+							id: response.id,
+							title: response.title,
+							overview: response.overview,
+							image: getImage(response.poster_path),
+							rating: response.vote_average,
+							release_date: response.release_date
+						}
+						setMovie(movieLoaded);
+					})
+			}
 			catch (error) {
 				setError('Something went wrong');
 			} finally {
@@ -51,7 +66,26 @@ const MovieDetails = ({ navigation, route }) => {
 			}
 		}
 
+		async function fetchRecommendations() {
+			setLoading(true);
+
+			try {
+				const res = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=a1279933de606b4374a2c93a1d0127a9&language=en-US&page=1`)
+
+				const recommendationsLoaded = res.data.results.map((recommendation) => ({
+					...recommendation,
+					image: getImage(recommendation.poster_path),
+				}));
+				setRecommendations(recommendationsLoaded);
+			} catch (error) {
+				setError('Something went wrong');
+			} finally {
+				setLoading(false);
+			}
+		}
+
 		fetchMovie();
+		fetchRecommendations();
 	}, []);
 
 	return (
@@ -64,6 +98,13 @@ const MovieDetails = ({ navigation, route }) => {
 					<View><Text style={styles.rating}>Rating: {movie.rating}</Text></View>
 					<View><Text style={styles.release_date}>Release Date: {movie.release_date}</Text></View>
 				</Text>
+				<View>
+					{
+						recommendations.map((item) => (
+							<Recommendation key={item.id.toString()} item={item} navigation={navigation} />
+						))
+					}
+				</View>
 			</ScrollView>
 		</SafeAreaView>
 	);
@@ -94,6 +135,21 @@ const styles = StyleSheet.create({
 	},
 	release_date: {
 		fontWeight: 'bold',
+	},
+	recommendation: {
+		marginTop: 20,
+	},
+	list: {
+		marginTop: 10,
+		width: 400,
+	},
+	recommendation: {
+		flex: 1,
+		flexDirection: 'row',
+	},
+	image: {
+		width: 120,
+		height: 150,
 	}
 });
 
