@@ -130,7 +130,12 @@ const styles = StyleSheet.create({
 	recs: {
 		marginTop: 20,
 		width: 360,
-	}
+	},
+	recommendation: {
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		margin: 1,
+	},
 });
 
 export default MovieDetails;
