@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 		
 	},
 	image: {
-		width: 117,
+		width: 120,
 		height: 148,
 	}
 });
