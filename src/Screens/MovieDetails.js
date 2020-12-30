@@ -7,6 +7,7 @@ import {
 	Text,
 	Image,
 	ScrollView,
+	ActivityIndicator
 } from 'react-native';
 import axios from 'axios';
 
@@ -84,8 +85,8 @@ const MovieDetails = ({ navigation, route }) => {
 		)
 	} else if(loading) {
 		return (
-			<View>
-				<Text>Loading...</Text>
+			<View style={styles.container}>
+				<ActivityIndicator />
 			</View>
 		)
 	} else {

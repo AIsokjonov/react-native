@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StyleSheet, ActivityIndicator, View, Text, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
 import axios from 'axios';
 
 import Movie from '../components/Movie';
@@ -53,8 +53,8 @@ const Browse = (props) => {
     )
   } else if(loading) {
     return (
-      <View>
-        <Text>Loading...</Text>
+      <View style={styles.container}>
+        <ActivityIndicator />
       </View>
     )
   } else {

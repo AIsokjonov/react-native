@@ -3,7 +3,9 @@ import {
 	StyleSheet,
 	SafeAreaView,
 	FlatList,
-	StatusBar
+	StatusBar,
+	ActivityIndicator,
+	Text
 } from 'react-native';
 import axios from 'axios';
 
@@ -63,9 +65,9 @@ const Home = (props) => {
 
 	if (error) {
 		return (
-			<View>
+			<SafeAreaView>
 				<Text>{error}</Text>
-			</View>
+			</SafeAreaView>
 		)
 	} else {
 		return (
@@ -77,7 +79,9 @@ const Home = (props) => {
 				/>
 				{
 					loading ? (
-						<View>Loading...</View>
+						<SafeAreaView style={styles.indicator}>
+							<ActivityIndicator />
+						</SafeAreaView>
 					) : (
 							<FlatList
 								horizontal={false}
@@ -106,6 +110,11 @@ const styles = StyleSheet.create({
 	list: {
 		marginTop: 10,
 		width: 360,
+	},
+	indicator: {
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginTop: 100,
 	}
 });
 
