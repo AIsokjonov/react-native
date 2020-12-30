@@ -40,8 +40,8 @@ const App = () => {
 
 						if (route.name === 'Search') {
 							iconName = focused ? 'search' : 'search';
-						} else if (route.name === 'Browse') {
-							iconName = focused ? 'home' : 'home';
+						} else if (route.name === 'Browser') {
+							iconName = focused ? 'list' : 'list';
 						}
 
 						return <Icon name={iconName} size={size} color={color} />;
