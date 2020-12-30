@@ -87,11 +87,10 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		marginTop: StatusBar.currentHeight || 0,
 		marginBottom: 20,
-		justifyContent: 'center'
 	},
 	list: {
 		marginTop: 10,
-		width: 400,
+		width: 360,
 	}
 });
 
