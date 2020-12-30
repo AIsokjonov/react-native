@@ -18,17 +18,18 @@ const Browse = (props) => {
 
   const [loading, setLoading] = useState(false);
   const [movies, setMovies] = useState([]);
+	const [category, setCategory] = useState('popular');
   const [error, setError] = useState('');
   const [offset, setOffset] = useState(1);
 
   useEffect(() => {
-    fetchMovies()
+		fetchMovies();
   }, []);
 
   function fetchMovies() {
     setLoading(true);
     try {
-      axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=a1279933de606b4374a2c93a1d0127a9&language=en-US&page=${offset}`)
+      axios.get(`https://api.themoviedb.org/3/movie/${category}?api_key=a1279933de606b4374a2c93a1d0127a9&language=en-US&page=${offset}`)
         .then((res) => {
           const loadedMovies = res.data.results.map((movie) => ({
             ...movie,
@@ -45,6 +46,21 @@ const Browse = (props) => {
     }
   }
 
+	function handlePopular() {
+		setCategory('popular');
+		fetchMovies();
+	}
+
+	function handleTopRated() {
+		setCategory('top_rated');
+		fetchMovies();
+	}
+
+	function handleUpcoming() {
+		setCategory('upcoming');
+		fetchMovies();
+	}
+
   if (error) {
     return (
       <View>
@@ -60,6 +76,17 @@ const Browse = (props) => {
   } else {
     return (
       <SafeAreaView style={styles.container}>
+				<View style={styles.category}>
+					<TouchableOpacity onPress={handlePopular}>
+						<Text style={styles.category_head}>Popular</Text>
+					</TouchableOpacity>
+					<TouchableOpacity onPress={handleTopRated}>
+						<Text style={styles.category_head}>Top Rated</Text>
+					</TouchableOpacity>
+					<TouchableOpacity onPress={handleUpcoming}>
+						<Text style={styles.category_head}>Upcoming</Text>
+					</TouchableOpacity>
+				</View>
         <View style={styles.popular}>
           <FlatList
             contentContainerStyle={styles.container}
@@ -91,7 +118,17 @@ const styles = StyleSheet.create({
   },
   popular: {
     marginTop: 10,
-  }
+  },
+	category: {
+		flexDirection: 'row',
+		marginTop: 10,
+		marginBottom: 5
+	},
+	category_head: {
+		fontWeight: 'bold',
+		marginLeft: 10,
+		marginRight: 10,
+	}
 });
 
 export default Browse;
