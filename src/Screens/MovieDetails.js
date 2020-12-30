@@ -26,7 +26,7 @@ const MovieDetails = ({ navigation, route }) => {
 	const { movieId } = route.params;
 	const [movie, setMovie] = useState({});
 	const [recommendations, setRecommendations] = useState([]);
-	const [error, setError] = useState('');
+	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
@@ -76,29 +76,49 @@ const MovieDetails = ({ navigation, route }) => {
 		fetchRecommendations();
 	}, []);
 
-	return (
-		<SafeAreaView style={styles.container}>
-			<ScrollView>
-				<Image style={styles.img} source={{ uri: movie.image }} />
-				<Text style={styles.title}>{movie.title}</Text>
-				<Text style={styles.overview}>{movie.overview}</Text>
-				<Text>
-					<View><Text style={styles.rating}>Rating: {movie.rating}</Text></View>
-					<View><Text style={styles.release_date}>Release Date: {movie.release_date}</Text></View>
-				</Text>
-				<View style={styles.recs}>
-					<Text style={styles.rec_head}>Recommendations</Text>
-					<View style={styles.recommendation}>
-						{
-							recommendations.map((item) => (
-								<Recommendation key={item.id.toString()} item={item} navigation={navigation} />
-							))
-						}
-					</View>
-				</View>
-			</ScrollView>
-		</SafeAreaView>
-	);
+	if (error) {
+		return (
+			<View>
+				<Text>{error}</Text>
+			</View>
+		)
+	} else if(loading) {
+		return (
+			<View>
+				<Text>Loading...</Text>
+			</View>
+		)
+	} else {
+		return (
+			<SafeAreaView style={styles.container}>
+				<ScrollView>
+					<Image style={styles.img} source={{ uri: movie.image }} />
+					<Text style={styles.title}>{movie.title}</Text>
+					<Text style={styles.overview}>{movie.overview}</Text>
+					<Text>
+						<View><Text style={styles.rating}>Rating: {movie.rating}</Text></View>
+						<View><Text style={styles.release_date}>Release Date: {movie.release_date}</Text></View>
+					</Text>
+					{
+						recommendations.length === 0 ? (
+							<View></View>
+						) : (
+								<View style={styles.recs}>
+									<Text style={styles.rec_head}>Recommendations</Text>
+									<View style={styles.recommendation}>
+										{
+											recommendations.map((item) => (
+												<Recommendation key={item.id.toString()} item={item} navigation={navigation} />
+											))
+										}
+									</View>
+								</View>
+							)
+					}
+				</ScrollView>
+			</SafeAreaView>
+		)
+	}
 };
 
 const styles = StyleSheet.create({
@@ -136,6 +156,10 @@ const styles = StyleSheet.create({
 		flexWrap: 'wrap',
 		margin: 1,
 	},
+	rec_head: {
+		fontSize: 22,
+		fontWeight: 'bold'
+	}
 });
 
 export default MovieDetails;

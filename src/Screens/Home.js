@@ -28,7 +28,7 @@ const Home = (props) => {
 
 	async function fetchMovies() {
 		setLoading(true);
-		
+
 		try {
 			const response = await axios.get(
 				`https://api.themoviedb.org/3/search/movie?api_key=a1279933de606b4374a2c93a1d0127a9&query=${query}`,
@@ -38,9 +38,9 @@ const Home = (props) => {
 				...movie,
 				image: getImage(movie.poster_path),
 			}));
-			
+
 			setMovies(movieLoaded);
-		} catch(error) {
+		} catch (error) {
 			setError('Something went wrong');
 		} finally {
 			setLoading(false);
@@ -61,25 +61,40 @@ const Home = (props) => {
 		await fetchMovies();
 	}
 
-	return (
-		<SafeAreaView style={styles.container}>
-			<SearchBar
-				handleChange={handleChange}
-				handleSubmit={handleSubmit}
-				query={query}
-			/>
-			<FlatList
-				horizontal={false}
-				contentContainerStyle={styles.list}
-				data={movies}
-				renderItem={({ item }) => (
-					<Movie item={item} navigation={props.navigation} />
-				)}
-				numColumns={3}
-				keyExtractor={(item) => item.id.toString()}
-			/>
-		</SafeAreaView>
-	);
+	if (error) {
+		return (
+			<View>
+				<Text>{error}</Text>
+			</View>
+		)
+	} else {
+		return (
+			<SafeAreaView style={styles.container}>
+				<SearchBar
+					handleChange={handleChange}
+					handleSubmit={handleSubmit}
+					query={query}
+				/>
+				{
+					loading ? (
+						<View>Loading...</View>
+					) : (
+							<FlatList
+								horizontal={false}
+								contentContainerStyle={styles.list}
+								data={movies}
+								renderItem={({ item }) => (
+									<Movie item={item} navigation={props.navigation} />
+								)}
+								numColumns={3}
+								keyExtractor={(item) => item.id.toString()}
+							/>
+						)
+				}
+
+			</SafeAreaView>
+		);
+	}
 };
 
 const styles = StyleSheet.create({

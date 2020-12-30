@@ -25,10 +25,10 @@ const Browse = (props) => {
     fetchMovies()
   }, []);
 
-  async function fetchMovies() {
+  function fetchMovies() {
     setLoading(true);
     try {
-      await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=a1279933de606b4374a2c93a1d0127a9&language=en-US&page=${offset}`)
+      axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=a1279933de606b4374a2c93a1d0127a9&language=en-US&page=${offset}`)
         .then((res) => {
           const loadedMovies = res.data.results.map((movie) => ({
             ...movie,
@@ -45,24 +45,38 @@ const Browse = (props) => {
     }
   }
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.popular}>
-        <FlatList
-          contentContainerStyle={styles.container}
-          data={movies}
-          horizontal={false}
-          numColumns={3}
-          renderItem={({ item }) => (
-            <Movie item={item} navigation={props.navigation} />
-          )}
-          keyExtractor={(item) => item.id.toString()}
-          onEndReached={fetchMovies}
-          onEndReachedThreshold={0}
-        />
+  if (error) {
+    return (
+      <View>
+        <Text>{error}</Text>
       </View>
-    </SafeAreaView>
-  );
+    )
+  } else if(loading) {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    )
+  } else {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.popular}>
+          <FlatList
+            contentContainerStyle={styles.container}
+            data={movies}
+            horizontal={false}
+            numColumns={3}
+            renderItem={({ item }) => (
+              <Movie item={item} navigation={props.navigation} />
+            )}
+            keyExtractor={(item) => item.id.toString()}
+            onEndReached={fetchMovies}
+            onEndReachedThreshold={0.1}
+          />
+        </View>
+      </SafeAreaView>
+    )
+  }
 };
 
 const styles = StyleSheet.create({
