@@ -10,3 +10,9 @@ Fetches data from <a href="https://www.themoviedb.org/">themoviedb.org</a> API.
 		<li>Browse movies based on popular, top rated and upcoming categories</li>
   </ul>
 </div>
+<div>
+	<h3>Demo</h3>
+	<div>
+		<img src="demo/demo.gif" alt="demo" />
+	</div>
+</div>
