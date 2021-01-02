@@ -10,6 +10,7 @@ import {
 	ActivityIndicator
 } from 'react-native';
 import axios from 'axios';
+import Video from 'react-native-video';
 
 import Recommendation from '../components/Recommendation';
 
@@ -119,6 +120,7 @@ const MovieDetails = ({ navigation, route }) => {
 									<Text>Trailers</Text>
 									{
 										trailers.map((trailer) => (
+											//<Video source={{uri: `https://www.youtube.com/watch?v=${trailer.key}`}} />
 											<Text key={trailer.id}>{trailer.key}</Text>
 										))
 									}
@@ -151,6 +153,7 @@ const MovieDetails = ({ navigation, route }) => {
 const styles = StyleSheet.create({
 	container: {
 		alignItems: 'center',
+		justifyContent: 'center',
 		marginTop: StatusBar.currentHeight || 0,
 	},
 	img: {
