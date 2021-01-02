@@ -26,6 +26,7 @@ function getImage(path) {
 const MovieDetails = ({ navigation, route }) => {
 	const { movieId } = route.params;
 	const [movie, setMovie] = useState({});
+	const [trailers, setTrailers] = useState([]);
 	const [recommendations, setRecommendations] = useState([]);
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
@@ -34,8 +35,15 @@ const MovieDetails = ({ navigation, route }) => {
 		function fetchMovie() {
 			setLoading(true);
 			try {
-				axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=a1279933de606b4374a2c93a1d0127a9&language=en-US`)
+				axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=a1279933de606b4374a2c93a1d0127a9&append_to_response=videos`)
 					.then(({ data: response }) => {
+
+						const trailersLoaded = response.videos.results.map((trailer) => {
+							return {
+								id: trailer.id.toString(),
+								key: trailer.key,
+							}
+						});
 
 						const movieLoaded = {
 							id: response.id,
@@ -46,6 +54,7 @@ const MovieDetails = ({ navigation, route }) => {
 							release_date: response.release_date
 						}
 						setMovie(movieLoaded);
+						setTrailers(trailersLoaded);
 					})
 			}
 			catch (error) {
@@ -53,6 +62,7 @@ const MovieDetails = ({ navigation, route }) => {
 			} finally {
 				setLoading(false);
 			}
+
 		}
 
 		async function fetchRecommendations() {
@@ -100,6 +110,22 @@ const MovieDetails = ({ navigation, route }) => {
 						<View><Text style={styles.rating}>Rating: {movie.rating}</Text></View>
 						<View><Text style={styles.release_date}>Release Date: {movie.release_date}</Text></View>
 					</Text>
+					<View>
+						{
+							trailers.length === 0 ? (
+								<View></View>
+							) : (
+								<View>
+									<Text>Trailers</Text>
+									{
+										trailers.map((trailer) => (
+											<Text key={trailer.id}>{trailer.key}</Text>
+										))
+									}
+								</View>
+							)
+						}
+					</View>
 					{
 						recommendations.length === 0 ? (
 							<View></View>
