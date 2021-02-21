@@ -10,7 +10,6 @@ import {
 	ActivityIndicator
 } from 'react-native';
 import axios from 'axios';
-import Video from 'react-native-video';
 
 import Recommendation from '../components/Recommendation';
 
